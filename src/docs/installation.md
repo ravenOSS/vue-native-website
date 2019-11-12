@@ -7,7 +7,7 @@ gz_size: "30.67"
 
 This page will help you install and build your first native app using [Vue Native](https://vue-native.io/).
 
-** System Requirements **
+**System Requirements**
 * Globally installed [node](https://nodejs.org/en/) >= 6.0
 * Globally installed [npm](https://www.npmjs.com/) >= 4.0
 * Globally installed [Expo CLI](https://docs.expo.io/versions/latest/workflow/expo-cli/) **OR** [React Native CLI](https://facebook.github.io/react-native/docs/getting-started.html)
@@ -16,7 +16,7 @@ This page will help you install and build your first native app using [Vue Nativ
 
 [Vue Native CLI](https://github.com/GeekyAnts/vue-native-cli) is the easiest way to start building an application using [Vue Native](https://vue-native.io/).
 
-** Installing Vue Native CLI **
+**Installing Vue Native CLI**
 
 Install Vue Native CLI globally with the following command
 
@@ -30,13 +30,13 @@ It allows you to setup a fresh Vue Native app with either Expo or React Native C
 
 Expo was designed to allow developers to quickly set up and develop React Native apps, without having to configure Xcode or Android Studio. It is most suitable for you if you come from a Web background.
 
-** Step 0: Install Expo CLI globally **
+**Step 0: Install Expo CLI globally**
 
 ```
 $ npm install --global expo-cli
 ```
 
-** Step 1: Create a new project using the CLI's `init` command **
+**Step 1: Create a new project using the CLI's `init` command**
 
 ```
 $ vue-native init <projectName>
@@ -44,30 +44,7 @@ $ vue-native init <projectName>
 
 Follow the prompts to create a new directory with the specified name.
 
-** <a name="modifying-app-json"></a>NOTE **
-
-At this point you will need to manually change the `app.json` that has been generated inside the new project directory. To make the packager recognize `.vue` files, a `sourceExts` field under `packagerOpts`.
-
-```diff
-{
-  "expo": {
-    "name": "Your app's name",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
-    "version": "1.0.0",
-    ...
-    "packagerOpts": {
-+     "sourceExts": ["js", "json", "ts", "tsx", "vue"],
-      "config": "metro.config.js"
-    }
-  }
-}
-```
-
-** Step 2: Run the app **
+**Step 2: Run the app**
 
 Now `cd` into the newly created directory and start the development server.
 
@@ -96,13 +73,13 @@ This works just like `npm start`, but also attempts to open your app on a connec
 
 Using Expo to develop your app comes with the disadvantage that you can't work with custom native modules beyond React Native's API, since Expo doesn't build native code. So if you ever need to work with custom Java or Swift modules, you'll need to eject the app with `expo eject`. On the other hand, you can set up your project with React Native CLI, which will allow you to work with such modules from the start.
 
-** Step 0: Install React Native CLI globally **
+**Step 0: Install React Native CLI globally**
 
 ```
 $ npm install --global react-native-cli
 ```
 
-** Step 1: Create a new project using the CLI's `init` command with the `--no-expo` option **
+**Step 1: Create a new project using the CLI's `init` command with the `--no-expo` option**
 
 ```
 $ vue-native init <projectName> --no-expo
@@ -110,7 +87,7 @@ $ vue-native init <projectName> --no-expo
 
 Follow the prompts to create a new directory with the specified name.
 
-** Step 2: Run the app **
+**Step 2: Run the app**
 
 Now `cd` into the newly created directory and start the development server.
 
@@ -135,11 +112,11 @@ would start the development server and the app on an iPhone 8 simulator.
 
 ## Configuring a React Native project for Vue Native
 
-** NOTE: React Native <0.59 is no longer supported. If you wish to use Vue Native in a React Native project, you will need to upgrade to at least `react-native` v0.59. **
+**NOTE: React Native <0.59 is no longer supported. If you wish to use Vue Native in a React Native project, you will need to upgrade to at least `react-native` v0.59.**
 
 If you already have a React Native project (either pre-existing or freshly set up) and would like to use Vue Native with it, you can do so with the following steps:
 
-** Step 1: Install Vue Native **
+**Step 1: Install Vue Native**
 
 ```
 $ npm install vue-native-core vue-native-helper --save
@@ -148,7 +125,7 @@ $ npm install vue-native-scripts --save-dev
 
 `vue-native-core` and `vue-native-helper` contain code that allow Vue Native components to be instantiated and used at run-time. `vue-native-scripts` is a library that transpiles `.vue` single file components and Vue component templates into React components. It is only required as a dev dependency.
 
-** Step 2: Configure the React Native Packager **
+**Step 2: Configure the React Native Packager**
 
 Create `vueTransformerPlugin.js` in your project's root directory and specify supported extensions (vue):
 
@@ -193,15 +170,37 @@ module.exports = (async () => {
 })();
 ```
 
-** Step 2.5: (Only for Expo users) **
+**Step 2.5: (Only for Expo users)**
 
-Change the contents of `app.json` in the root of your project as described [here](#modifying-app-json)
+Now you will need to manually change the `app.json`. To make the packager recognize `.vue` files, a `sourceExts` field under `packagerOpts` must be added, which will define the supported module file extensions.
+
+If `sourceExts` was already present, just add `'vue'` to the array.
+
+```diff
+{
+  "expo": {
+    "name": "Your app's name",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.0.0",
+    ...
+    "packagerOpts": {
++     "sourceExts": ["js", "json", "ts", "tsx", "vue"],
+      "config": "metro.config.js"
+    }
+  }
+}
+```
+
 
 At this point you've successfully set up [Vue Native](https://vue-native.io/) with your [React Native](https://facebook.github.io/react-native/) app! You can now build truly native apps which are ready to run on iOS and Android devices.
 
 Check out the [KitchenSink Vue Native App](https://github.com/GeekyAnts/KitchenSink-Vue-Native) for an example which demonstrates different usages of [Vue Native](https://vue-native.io/) and [NativeBase](https://nativebase.io).
 
-** Step 3: Create A Vue File **
+**Step 3: Create A Vue File**
 
 Remove the Content of the `App.js` file and rename `App.js` file with `App.vue`.
 
@@ -228,7 +227,7 @@ Now copy and paste the below code:
 
 ```
 
-** Step 4: Running The App **
+**Step 4: Running The App**
 
 You can now start the development server as usual. If you use Expo, you can simply run
 
